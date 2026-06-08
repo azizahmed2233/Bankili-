@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
+  "env": {
+    "REACT_APP_TELEGRAM_BOT_TOKEN": "@REACT_APP_TELEGRAM_BOT_TOKEN",
+    "REACT_APP_TELEGRAM_CHAT_ID": "@REACT_APP_TELEGRAM_CHAT_ID"
+  }
+}
